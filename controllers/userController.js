@@ -86,7 +86,7 @@ exports.getUserDetailsController = async (req, res) => {
   const userId = req.userId;
 
   try {
-    const userDetails = await users.findById({ _id:userId });
+    const userDetails = await users.findById({ _id: userId });
     res.status(200).json(userDetails);
   } catch (error) {
     res.status(401).json(error);
@@ -97,22 +97,39 @@ exports.updateUserDetailsController = async (req, res) => {
   console.log("Inside update user details controller");
   const userId = req.userId;
   console.log(req.body);
-  
+
   const { firstname, lastname, mobilenumber, email, profileImg, address } =
     req.body;
   try {
     const updateUser = await users.findByIdAndUpdate(
       { _id: userId },
-      { firstname, lastname, mobilenumber, email, profileImg, "address.street": address.street,
-          "address.city": address.city,
-          "address.state": address.state,
-          "address.postalCode": address.postalCode,
-          "address.country": address.country },
+      {
+        firstname,
+        lastname,
+        mobilenumber,
+        email,
+        profileImg,
+        "address.street": address.street,
+        "address.city": address.city,
+        "address.state": address.state,
+        "address.postalCode": address.postalCode,
+        "address.country": address.country,
+      },
       { new: true }
     );
     await updateUser.save();
-    res.status(200).json(updateUser)
+    res.status(200).json(updateUser);
   } catch (error) {
-    res.status(401).json(error)
+    res.status(401).json(error);
+  }
+};
+
+exports.allUserViewController = async (req, res) => {
+  console.log("Inside all user view controller");
+  try {
+    const allUser = await users.find({ role: "User" });
+    res.status(200).json(allUser);
+  } catch (error) {
+    res.status(401).json(error);
   }
 };

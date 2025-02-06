@@ -11,3 +11,13 @@ exports.addTestimonialController = async(req,res)=>{
         res.status(401).json(error)
     }
 }
+
+exports.getAllMessageController = async(req,res)=>{
+    console.log("Inside Get all Message controller");
+    try {
+        const allMessage = await testimonials.find()
+        res.status(200).json(allMessage)
+    } catch (error) {
+        res.status(401).json(error)
+    }
+}

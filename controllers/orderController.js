@@ -11,3 +11,13 @@ exports.getOrderDetailsController = async(req,res)=>{
         res.status(401).json(error)
     }
 }
+
+exports.getAllOrdersController = async(req,res)=>{
+    console.log("Inside Get All Order Controller");
+    try {
+        const allOrders = await orders.find()
+        res.status(200).json(allOrders)
+    } catch (error) {
+        res.status(401).json(error)
+    }
+}
