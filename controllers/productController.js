@@ -104,3 +104,19 @@ exports.deleteProductController = async(req,res)=>{
         res.status(401).json(error)
     }
 }
+
+exports.addReviewController = async(req,res)=>{
+  console.log("Inisde add review controller");
+  const {id} = req.params
+  const reviewData = req.body
+  try {
+    const addReview = await products.findByIdAndUpdate(
+      {_id:id},
+      { $push: { reviews: reviewData } }, 
+      { new: true } 
+    );
+    res.status(200).json(addReview)
+  } catch (error) {
+    res.status(401).json(error)
+  }
+}

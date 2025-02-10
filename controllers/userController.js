@@ -93,6 +93,35 @@ exports.getUserDetailsController = async (req, res) => {
   }
 };
 
+exports.getAdminDetailsController = async (req, res) => {
+  console.log("Inside get Admin details controller");
+  try {
+    const adminDetails = await users.findOne({ role: "Admin" });
+    res.status(200).json(adminDetails);
+  } catch (error) {
+    res.status(401).json(error);
+  }
+};
+
+exports.editAdminDetailsController = async (req, res) => {
+  console.log("Inside Edit Admin details controller");
+  const {id} = req.userId
+  const {username, email, password} = req.body
+  console.log(username, email, password);
+  
+  try {
+    const updateAdminDetails = await users.findOneAndUpdate({ role:"Admin" }, {username, email, password, role:"Admin"}, {new:true});
+    console.log(updateAdminDetails);
+    
+    await updateAdminDetails.save()
+    console.log(updateAdminDetails);
+
+    res.status(200).json(updateAdminDetails);
+  } catch (error) {
+    res.status(401).json(error);
+  }
+};
+
 exports.updateUserDetailsController = async (req, res) => {
   console.log("Inside update user details controller");
   const userId = req.userId;

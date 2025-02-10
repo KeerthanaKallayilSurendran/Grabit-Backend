@@ -66,10 +66,42 @@ router.put(
   userController.updateUserDetailsController
 );
 router.get("/all-users", jwtMiddleware, userController.allUserViewController);
-router.get("/all-orders", jwtMiddleware, orderController.getAllOrdersController);
-router.get("/all-message", jwtMiddleware, testimonyController.getAllMessageController)
-router.post("/add-product", jwtMiddleware, productController.addProductsController)
-router.put("/product/:id/edit", jwtMiddleware, productController.updateProductController);
-router.delete("/product/:id/delete", jwtMiddleware, productController.deleteProductController)
+router.get(
+  "/get-admin",
+  jwtMiddleware,
+  userController.getAdminDetailsController
+);
+router.put(
+  "/edit-admin",
+  jwtMiddleware,
+  userController.editAdminDetailsController
+);
+router.get(
+  "/all-orders",
+  jwtMiddleware,
+  orderController.getAllOrdersController
+);
+router.get(
+  "/all-message",
+  jwtMiddleware,
+  testimonyController.getAllMessageController
+);
+router.post(
+  "/add-product",
+  jwtMiddleware,
+  productController.addProductsController
+);
+router.put(
+  "/product/:id/edit",
+  jwtMiddleware,
+  productController.updateProductController
+);
+router.delete(
+  "/product/:id/delete",
+  jwtMiddleware,
+  productController.deleteProductController
+);
+
+router.put("/product/:id/review", jwtMiddleware, productController.addReviewController)
 
 module.exports = router;
